@@ -1,0 +1,22 @@
+{
+  "name": "crud_restro",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pradeepshah99/CRUD_Restro.git"
+  },
+  "author": "Pradeep Sahani",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pradeepshah99/CRUD_Restro/issues"
+  },
+  "homepage": "https://github.com/pradeepshah99/CRUD_Restro#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
