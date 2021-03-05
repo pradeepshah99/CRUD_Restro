@@ -21,8 +21,8 @@ router.get('/getPost', jwtVerify.verifyJwtToken, postDataHandler.getPost);
 router.post('/createProduct', product.createProduct);
 router.get('/getAllProducts', product.findAllProducts);
 router.get('/products/:productId', product.findOneProduct);
-router.put('/products/:productId', product.updateProduct);
-router.delete('/products/:productId', product.deleteProduct);
+router.put('/updateProducts/:productId', product.updateProduct);
+router.delete('/deleteproducts/:productId', product.deleteProduct);
 
 
 
