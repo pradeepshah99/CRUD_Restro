@@ -6,7 +6,6 @@ const jwtVerify = require('../jwt_data/jwtVerify')
 const postDataHandler = require('../controller/postController');
 const product = require('../controller/productController');
 
-
 router.post('/register', controlUser.register);
 router.post('/login', controlUser.login);
 router.get('/profile', jwtVerify.verifyJwtToken, controlUser.profile);

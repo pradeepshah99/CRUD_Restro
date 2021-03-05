@@ -1,4 +1,5 @@
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
+
 
 // let tokenData = '';
 
@@ -24,24 +25,23 @@
 //         })
 //     }
 
-//     // var token = req.header("token", token);
-//     // if (!token) return res.status(401).json({ message: "Authentication Failed - Token Not Provided" });
+// var token = req.header("token", token);
+// if (!token) return res.status(401).json({ message: "Authentication Failed - Token Not Provided" });
 
-//     // try {
-//     //     const decoded = jwt.verify(token, "deep");
-//     //     req.user = decoded.user;
+// try {
+//     const decoded = jwt.verify(token, "deep");
+//     req.user = decoded.user;
 
-//     //     next();
-//     // } catch (e) {
-//     //     console.error(e);
-//     //     res.status(500).send({ message: "Invalid Token" });
-
-//     // }
+//     next();
+// } catch (e) {
+//     console.error(e);
+//     res.status(500).send({ message: "Invalid Token" });
 
 // }
 
 
-const jwt = require('jsonwebtoken');
+
+
 
 var tokenValue = '';
 module.exports.verifyJwtToken = (req, res, next) => {
@@ -66,5 +66,20 @@ module.exports.verifyJwtToken = (req, res, next) => {
                 }
             }
         )
+    }
+}
+
+module.exports.tokenValidation = (req, res, next) => {
+    var token = req.header("token", token);
+    if (!token) return res.status(401).json({ message: "Authentication Failed - Token Not Provided" });
+
+    try {
+        const decoded = jwt.verify(token, "deep");
+        req.user = decoded.user;
+        next();
+    } catch (e) {
+        console.error(e);
+        res.status(500).send({ message: "Invalid Token" });
+
     }
 }
