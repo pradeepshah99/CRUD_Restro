@@ -7,6 +7,7 @@ const userData = require('../model/user_model')
 module.exports.adminReg = async(req, res, next) => {
 
 
+
     let admin = new adminData();
     admin.fullName = req.body.fullName;
     admin.email = req.body.email;
@@ -93,11 +94,48 @@ module.exports.adminProfile = async(req, res) => {
 }
 
 module.exports.findallUser = async(req, res) => {
-    const allData = await userData.find().then((err, result) => {
+    await userData.find().then((err, result) => {
         if (err) {
             res.send(err)
         } else {
-            res.status(200).json({ message: `all data fetched of users` });
+            res.status(200).json({ message: `all data fetched of users`, result });
+        }
+    }).catch(err => {
+        res.send(err);
+    })
+}
+
+module.exports.updateUser = async(req, res) => {
+    let salt = 10;
+    password = await bcrypt.hashSync(req.body.password, salt);
+    await userData.findByIdAndUpdate(_id = req.params.id, { fullName: req.body.fullName, email: req.body.email, password: password, address: req.body.address, phone: req.body.phone }, { new: true }).then(user => {
+        if (!user) {
+            return res.status(404).send({
+                message: "Note not found with id " + req.params.id
+            });
+        }
+        res.json(user);
+    }).catch(err => {
+        if (err.kind === 'ObjectId') {
+            return res.status(404).send({
+                message: "User not found with id " + req.params.id
+            });
+        }
+        return res.status(500).send({
+            message: "Error updating note with id " + req.params.id
+        });
+    });
+}
+
+module.exports.deleteUser = async(req, res) => {
+    await userData.findByIdAndDelete({ _id: req.params.id }).then((err, result) => {
+        if (err) {
+            res.send({ message: "something wrong" })
+        } else {
+            res.status(200).json({
+                message: `user deleted of the id ${req.params.id}`,
+                data: result
+            })
         }
     }).catch(err => {
         res.send(err);
